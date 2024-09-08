@@ -37,6 +37,15 @@ function App() {
     });
   }
 
+  function handleEditTask(id, newText) {
+    setProjectsState(prevState => ({
+      ...prevState,
+      tasks: prevState.tasks.map(task =>
+        task.id === id ? { ...task, text: newText } : task
+      ),
+    }));
+  }
+
   function handleSelectProject(id){
     setProjectsState(prevState => {
       return {
@@ -92,12 +101,16 @@ function App() {
 
   const selectedProject = projectsState.projects.find(project => project.id === projectsState.selectedProjectId);
 
-  let content = <SelectedProject
-    project={selectedProject}
-    onDelete={handleDelete}
-    onAddTask={handleAddTask}
-    onDeleteTask={handleDeleteTask}
-    tasks={projectsState.tasks}/>;
+  let content = (
+    <SelectedProject
+      project={selectedProject}
+      onDelete={handleDelete}
+      onAddTask={handleAddTask}
+      onDeleteTask={handleDeleteTask}
+      onEditTask={handleEditTask}
+      tasks={projectsState.tasks}
+    />
+  );
 
   if(projectsState.selectedProjectId === null){
     content = <NewProject onAdd={handleAddProject} onCancel={handleCancelProject}/>
@@ -107,14 +120,15 @@ function App() {
 
   return (
     <main className="h-screen my-8 flex gap-8">
-    <ProjectsSidebar onStartAddProject={handleStartAddProject} 
-    projects={projectsState.projects}
-    onSelectProject={handleSelectProject}
-    selectedProjectId={projectsState.selectedProjectId}/>
-    {content}
+      <ProjectsSidebar
+        onStartAddProject={handleStartAddProject}
+        projects={projectsState.projects}
+        onSelectProject={handleSelectProject}
+        selectedProjectId={projectsState.selectedProjectId}
+      />
+      {content}
     </main>
   );
 }
 
-
-export default App; 
+export default App;
