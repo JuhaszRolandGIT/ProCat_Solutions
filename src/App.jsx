@@ -1,7 +1,7 @@
 import NoProjectSelected from "./components/NoProjectSelected.jsx";
 import { ProjectsSidebar } from "./components/ProjectsSidebar";
 import NewProject from "./components/NewProject.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SelectedProject from "./components/SelectedProject.jsx";
 
 function App() {
@@ -9,23 +9,36 @@ function App() {
     selectedProjectId: undefined,
     projects: [],
     tasks: []
-  })
+  });
+
+  useEffect(() => {
+    const storedState = localStorage.getItem('projectsState');
+    if (storedState) {
+      setProjectsState(JSON.parse(storedState));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('projectsState', JSON.stringify(projectsState));
+  }, [projectsState]);
 
   function handleAddTask(text){
     setProjectsState(prevState => {
-      const taskId = Math.random()
+      if (prevState.selectedProjectId === undefined) return prevState; 
+      const taskId = Math.random();
       const newTask = {
-      text: text,
-      projectId: prevState.selectedProjectId,
-      id: taskId,
+        text: text,
+        projectId: prevState.selectedProjectId,
+        id: taskId,
       };
-
+  
       return {
         ...prevState,
-        tasks: [newTask, ...prevState.tasks]
+        tasks: [...prevState.tasks, newTask]
       };
     });
   }
+  
 
   function handleDeleteTask(id){
     setProjectsState(prevState => {
@@ -77,8 +90,8 @@ function App() {
     setProjectsState(prevState => {
       const projectId = Math.random()
       const newProject = {
-      ...projectData,
-      id: projectId,
+        ...projectData,
+        id: projectId,
       }
       return {
         ...prevState,
@@ -108,7 +121,7 @@ function App() {
       onAddTask={handleAddTask}
       onDeleteTask={handleDeleteTask}
       onEditTask={handleEditTask}
-      tasks={projectsState.tasks}
+      tasks={projectsState.tasks.filter(task => task.projectId === projectsState.selectedProjectId)} // Szűrés
     />
   );
 
