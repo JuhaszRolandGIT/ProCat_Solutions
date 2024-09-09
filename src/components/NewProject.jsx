@@ -30,14 +30,12 @@ export default function NewProject({ onAdd, onCancel }) {
       dueDate: enteredDueDate
     });
 
-    // Trigger the exit animation and then notify the parent
     setIsVisible(false);
   }
 
   function handleCancel() {
-    // Trigger the exit animation and then notify the parent
     setIsVisible(false);
-    setTimeout(() => onCancel(), 500); // Adjust the delay to match the animation duration
+    setTimeout(() => onCancel(), 500);
   }
 
   return (
@@ -53,7 +51,7 @@ export default function NewProject({ onAdd, onCancel }) {
             className="w-[35rem] mt-16"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }} // Exit animation
+            exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
           >
             <menu className="flex items-center justify-end gap-4 my-4">

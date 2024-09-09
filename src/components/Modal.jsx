@@ -36,7 +36,7 @@ const Modal = forwardRef(function Modal({ children, buttonCaption }, ref) {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        onClick={handleClose} // Close the modal when clicking outside
+                        onClick={handleClose}
                     />
                     <motion.div
                         ref={dialog}
