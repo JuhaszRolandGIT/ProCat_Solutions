@@ -11,6 +11,7 @@ A projekt telepítéséhez kövesd az alábbi lépéseket:
 
 <b>NPM Csomagok Telepítése</b><br>
 npm install
+npm install framer-motion (animációs könyvtár)
 
 <br>
 
