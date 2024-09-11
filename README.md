@@ -10,7 +10,7 @@ Az alkalmazás célja, hogy segítsen a felhasználóknak szervezni a feladataik
 A projekt telepítéséhez kövesd az alábbi lépéseket:
 
 <b>NPM Csomagok Telepítése</b><br>
-npm install
+npm install <br>
 npm install framer-motion (animációs könyvtár)
 
 <br>
